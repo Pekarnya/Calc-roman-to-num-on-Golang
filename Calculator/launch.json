@@ -1,0 +1,7 @@
+{
+    "name": "go",
+    "console": "integratedTerminal",
+    "type": "go",
+    "request": "launch"
+
+}
