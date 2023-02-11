@@ -48,12 +48,14 @@ func roman_convert(roman_num string) int {
 	return out
 }
 
-func num_to_roman(num int) string {
+func num_to_roman(digit int) string {
 
 	var num_convert = map[int]string{
 		1:    "I",
+		4:    "IV",
 		5:    "V",
 		10:   "X",
+		40:   "XL",
 		50:   "L",
 		100:  "C",
 		500:  "D",
@@ -61,16 +63,16 @@ func num_to_roman(num int) string {
 	}
 
 	out := ""
-	for num > 0 {
-		max := max_decimal(num)
+	for digit > 0 {
+		max := max_decimal(digit)
 		out += num_convert[max]
-		num -= max
+		digit = digit - max
 	}
 
 	return out
 }
 
-func max_decimal(num int) int {
+func max_decimal(number int) int {
 	var decimal_table = []int{
 		1000,
 		900,
@@ -87,12 +89,11 @@ func max_decimal(num int) int {
 		1,
 	}
 	for _, v := range decimal_table {
-		if v <= num {
+		if v <= number {
 			return v
-
 		}
 	}
-	return 1
+	return 0
 }
 
 func math_err(x, y int, operand string) {
@@ -127,16 +128,16 @@ func divide(x, y int, param string) {
 func multiplicate(x, y int, param string) {
 
 	res := "multiplication: "
-	multiplication := x * y
+	num := x * y
 
 	switch param {
 	case "rom":
-		convert := num_to_roman(multiplication)
+		convert := num_to_roman(num)
 		fmt.Print(res, convert)
 		return
 
 	case "num":
-		fmt.Print(res, multiplication)
+		fmt.Print(res, num)
 	}
 }
 
@@ -266,7 +267,7 @@ func main() {
 	var operator string
 	var y string
 	fmt.Print("Type expression, operands are separated by spaces: \n")
-	fmt.Scanln(&x, &operator, &y)
+	fmt.Scanln(&x, &operator, &y) //&operator, &y)
 	if len(x) != 0 && len(y) != 0 && len(operator) != 0 {
 		check_for_int(x, y, operator)
 
